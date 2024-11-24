@@ -18,6 +18,21 @@ import static java.lang.Math.pow;
 
 public class Calculator {
 
+    // Factory for creating operations
+class OperationFactory {
+    public Operation createOperation(String operationType) {
+        return switch (operationType) {
+            case "add" -> new AddOperation();
+            case "subtract" -> new SubtractOperation();
+            case "multiply" -> new MultiplyOperation();
+            case "divide" -> new DivideOperation();
+            case "square" -> new SquareOperation();
+            case "sqrt" -> new SquareRootOperation();
+            default -> throw new IllegalArgumentException("Unknown operation: " + operationType);
+        };
+    }
+}
+
     public enum BiOperatorModes {
         normal, add, minus, multiply, divide , xpowerofy 
     }
