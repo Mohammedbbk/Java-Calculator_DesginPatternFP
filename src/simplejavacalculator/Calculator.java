@@ -9,12 +9,21 @@
  * @license     Apache (http://www.apache.org/licenses/LICENSE-2.0)
  */
 
+ /*
+  * Process Patterns Project
+  Team:
+  1- Mohammed alzahrani 2141257 (Creational) 
+  */
+
 package simplejavacalculator;
 
 import static java.lang.Double.NaN;
 import static java.lang.Math.log;
 import static java.lang.Math.log10;
 import static java.lang.Math.pow;
+import simplejavacalculator.creational.CalculatorBuilder;
+import simplejavacalculator.creational.Operation;
+import simplejavacalculator.creational.OperationFactory;
 
 public class Calculator {
 
@@ -29,32 +38,40 @@ public class Calculator {
 
     private Double num1, num2;
     private BiOperatorModes mode = BiOperatorModes.normal;
+    //added factory and builder interfaces (Creational)
+    private final OperationFactory factory;
+    private final CalculatorBuilder builder;
+
+    //new instances of factory & builder
+    public Calculator() {
+        this.factory = new OperationFactory();
+        this.builder = new CalculatorBuilder();
+    }
 
     private Double calculateBiImpl() {
         if (mode.equals(BiOperatorModes.normal)) {
             return num2;
         }
+
+        //factory handling operations
+        
+        Operation operation = null;
         if (mode.equals(BiOperatorModes.add)) {
-            if (num2 != 0) {
-                return num1 + num2;
-            }
-
-            return num1;
-        }
-        if (mode.equals(BiOperatorModes.minus)) {
-            return num1 - num2;
-        }
-        if (mode.equals(BiOperatorModes.multiply)) {
-            return num1 * num2;
-        }
-        if (mode.equals(BiOperatorModes.divide)) {
-            return num1 / num2;
-        }
-        if (mode.equals(BiOperatorModes.xpowerofy)) {
-            return pow(num1,num2);
+            operation = factory.createOperation("add");
+        } else if (mode.equals(BiOperatorModes.minus)) {
+            operation = factory.createOperation("subtract");
+        } else if (mode.equals(BiOperatorModes.multiply)) {
+            operation = factory.createOperation("multiply");
+        } else if (mode.equals(BiOperatorModes.divide)) {
+            operation = factory.createOperation("divide");
+        } else if (mode.equals(BiOperatorModes.xpowerofy)) {
+            return pow(num1, num2);
         }
 
-        // never reach
+        if (operation != null) {
+            return operation.execute(num1, num2);
+        }
+
         throw new Error();
     }
 
@@ -80,10 +97,8 @@ public class Calculator {
         num2 = 0.0;
         num1 = 0.0;
         mode = BiOperatorModes.normal;
-
         return NaN;
     }
-
     
     public Double calculateMono(MonoOperatorModes newMode, Double num) {
         if (newMode.equals(MonoOperatorModes.square)) {
@@ -102,13 +117,12 @@ public class Calculator {
             return Math.sin(Math.toRadians(num));
         }
         if (newMode.equals(MonoOperatorModes.tan)) {
-            if (num == 0 || num % 180 == 0 ) {
+            if (num == 0 || num % 180 == 0) {
                 return 0.0;
             }
             if (num % 90 == 0.0 && num % 180 != 0.0) {
                 return NaN;
             }
-
             return Math.tan(Math.toRadians(num));
         }
         if (newMode.equals(MonoOperatorModes.log)) {
@@ -117,16 +131,12 @@ public class Calculator {
         if (newMode.equals(MonoOperatorModes.ln)) {
             return log(num);
         }
-        if (newMode.equals(MonoOperatorModes.rate) ) {
+        if (newMode.equals(MonoOperatorModes.rate)) {
             return num / 100;
         }
-        if (newMode.equals(MonoOperatorModes.abs)){
+        if (newMode.equals(MonoOperatorModes.abs)) {
             return Math.abs(num);
         }
-
-        // never reach
         throw new Error();
     }
-
 }
-
