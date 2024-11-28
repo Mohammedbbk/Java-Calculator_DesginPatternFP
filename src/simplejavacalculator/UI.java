@@ -15,7 +15,7 @@
  * @modemail    contact@achinthagunasekara.com
  * @modemail    kchantza@csd.auth.gr
  */
-//hello
+
 package simplejavacalculator;
 
 import java.awt.FlowLayout;
