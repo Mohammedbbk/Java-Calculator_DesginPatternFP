@@ -13,6 +13,7 @@
   * Process Patterns Project
   Team:
   1- Mohammed alzahrani 2141257 (Creational) 
+  2- Khalid Algharni 2141257 (Behavioral/Command) 
   */
 
 package simplejavacalculator;
