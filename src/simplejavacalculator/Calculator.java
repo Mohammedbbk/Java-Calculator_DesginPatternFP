@@ -2,14 +2,14 @@ package simplejavacalculator;
 
 import static java.lang.Double.NaN;
 import static java.lang.Math.*;
-import simplejavacalculator.creational.*;
-import simplejavacalculator.structural.*;
-import simplejavacalculator.structural.decorator.*;
-import simplejavacalculator.structural.adapter.*;
-import simplejavacalculator.behavioral.command.*;
-import simplejavacalculator.behavioral.strategy.*;
 import java.util.HashMap;
 import java.util.Map;
+import simplejavacalculator.behavioral.command.*;
+import simplejavacalculator.behavioral.strategy.*;
+import simplejavacalculator.creational.*;
+import simplejavacalculator.structural.*;
+import simplejavacalculator.structural.adapter.*;
+import simplejavacalculator.structural.decorator.*;
 
 public class Calculator {
     public enum BiOperatorModes {
